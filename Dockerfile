@@ -35,6 +35,7 @@ WORKDIR /home/tensorflow/models/research/
 RUN cp object_detection/packages/tf2/setup.py ./
 ENV PATH="/home/tensorflow/.local/bin:${PATH}"
 
+<<<<<<< HEAD
 # Install and set up Jupyter notebook
 
 RUN python3 -m pip install --upgrade pip
@@ -46,8 +47,10 @@ RUN jupyter notebook --generate-config --allow-root
 RUN echo "c.NotebookApp.password = u'sha1:6a3f528eec40:6e896b6e4828f525a6e20e5411cd1c8075d68619'" >> /home/tensorflow/.jupyter/jupyter_notebook_config.py
 EXPOSE 8888
 #CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/tensorflow/models/research/object_detection", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
-CMD ["jupyter-notebook", "--allow-root", "--notebook-dir=/home/tensorflow/models/research/object_detection", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
+#CMD ["jupyter-notebook", "--allow-root", "--notebook-dir=/home/tensorflow/models/research/object_detection", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
 
+=======
+>>>>>>> 7e9f7658c67bc4eb6817e84a5c371e70d40b2e99
 RUN python -m pip install -U pip
 RUN python -m pip install .
 
