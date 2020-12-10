@@ -41,7 +41,8 @@ FROM golang:alpine
 
 # Copy SSH key for git private repos
 RUN mkdir -p /root/.ssh/
-ADD .ssh/id_rsa /root/.ssh/id_rsa
+#ADD .ssh/id_rsa /root/.ssh/id_rsa
+ADD .ssh/id_ed25519 /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
 # Use git with SSH instead of https
 RUN echo “[url \”git@github.com:\”]\n\tinsteadOf = https://github.com/" >> /root/.gitconfig
