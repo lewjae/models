@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     python3-pil \
     python3-lxml \
     python3-tk \
+    vim \
     wget
 
 # Install gcloud and gsutil commands
@@ -34,6 +35,17 @@ WORKDIR /home/tensorflow/models/research/
 
 RUN cp object_detection/packages/tf2/setup.py ./
 ENV PATH="/home/tensorflow/.local/bin:${PATH}"
+
+# Set git SSH method
+FROM golang:alpine
+
+# Copy SSH key for git private repos
+ADD .ssh/id_rsa /root/.ssh/id_rsa
+RUN chmod 600 /root/.ssh/id_rsa
+# Use git with SSH instead of https
+RUN echo “[url \”git@github.com:\”]\n\tinsteadOf = https://github.com/" >> /root/.gitconfig
+# Skip Host verification for git
+RUN echo “StrictHostKeyChecking no “ > /root/.ssh/config
 
 # Install and set up Jupyter notebook
 
