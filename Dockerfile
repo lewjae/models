@@ -40,18 +40,23 @@ ENV PATH="/home/tensorflow/.local/bin:${PATH}"
 #FROM golang:alpine
 
 # Copy SSH key for git private repos
-#RUN mkdir -p /root/.ssh/
+#RUN mkdir -p /home/tensorflow/.ssh/
 #ADD .ssh/id_rsa /root/.ssh/id_rsa
-#ADD .ssh/id_ed25519 /root/.ssh/id_rsa
-#RUN chmod 600 /root/.ssh/id_rsa
+#ADD ~/.ssh/id_ed25519 /home/tensorflow/.ssh/id_rsa
+#RUN chmod 600 /home/tensorflow/.ssh/id_rsa
 # Use git with SSH instead of https
-#RUN echo “[url \”git@github.com:\”]\n\tinsteadOf = https://github.com/" >> /root/.gitconfig
+#RUN echo “[url \”git@github.com:\”]\n\tinsteadOf = https://github.com/" >> /home/tensorflow/.gitconfig
 # Skip Host verification for git
-#RUN echo “StrictHostKeyChecking no “ > /root/.ssh/config
+#RUN echo “StrictHostKeyChecking no “ > /home/tensorflow/ssh/config
 
 ARG SSH_PRIVATE_KEY
 RUN mkdir -p  /home/tensorflow/.ssh/
 RUN echo "${SSH_PRIVATE_KEY}" > /home/tensorflow/.ssh/id_ed25519
+
+RUN chmod 600 /home/tensorflow/.ssh/id_ed25519
+#RUN ssh-keyscan github.com >> /home/tensorflow/.ssh/known_hosts
+RUN git config --global user.email "lewjae@gmail.com" 
+RUN git config --global user.name "lewjae"
 
 # Install and set up Jupyter notebook
 
