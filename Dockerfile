@@ -37,17 +37,21 @@ RUN cp object_detection/packages/tf2/setup.py ./
 ENV PATH="/home/tensorflow/.local/bin:${PATH}"
 
 # Set git SSH method
-FROM golang:alpine
+#FROM golang:alpine
 
 # Copy SSH key for git private repos
-RUN mkdir -p /root/.ssh/
+#RUN mkdir -p /root/.ssh/
 #ADD .ssh/id_rsa /root/.ssh/id_rsa
-ADD .ssh/id_ed25519 /root/.ssh/id_rsa
-RUN chmod 600 /root/.ssh/id_rsa
+#ADD .ssh/id_ed25519 /root/.ssh/id_rsa
+#RUN chmod 600 /root/.ssh/id_rsa
 # Use git with SSH instead of https
-RUN echo “[url \”git@github.com:\”]\n\tinsteadOf = https://github.com/" >> /root/.gitconfig
+#RUN echo “[url \”git@github.com:\”]\n\tinsteadOf = https://github.com/" >> /root/.gitconfig
 # Skip Host verification for git
-RUN echo “StrictHostKeyChecking no “ > /root/.ssh/config
+#RUN echo “StrictHostKeyChecking no “ > /root/.ssh/config
+
+ARG SSH_PRIVATE_KEY
+RUN mkdir -p  /home/tensorflow/.ssh/
+RUN echo "${SSH_PRIVATE_KEY}" > /home/tensorflow/.ssh/id_ed25519
 
 # Install and set up Jupyter notebook
 
